@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <!-- <div class="card-header">{{ __('Dashboard') }}</div> -->
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,7 +14,19 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <!-- <h4>{{ __('You are logged in!') }}</h4> -->
+
+                    @if(isset($user))
+                        <ul>
+                            <li><strong>Name:</strong> {{ $user->name }}</li>
+                            <li><strong>Email:</strong> {{ $user->email }}</li>
+                            <li><strong>Phone:</strong> {{ $user->phone }}</li>
+                            <li><strong>Gender:</strong> {{ $user->gender }}</li>
+                        </ul>
+                    @else
+                        <p>User data is not available.</p>
+                    @endif
+
                 </div>
             </div>
         </div>

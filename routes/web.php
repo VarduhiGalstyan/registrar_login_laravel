@@ -17,6 +17,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
 Route::get('/verify-phone', function () {
     return view('auth.verify');
 })->name('verify-phone');
@@ -31,7 +32,6 @@ Route::post('/verify-phone', function (Request $request) {
         return back()->withErrors(['code' => 'Invalid or expired verification code']);
     }
 
-    // Հաստատում ենք հեռախոսահամարը
     $user = User::where('phone', $request->phone)->first();
     if (!$user) {
         $user = User::create([

@@ -69,13 +69,6 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
 
-        session([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'gender' => $request->gender
-        ]);
-
         // Ստեղծում ենք վերիֆիկացիոն կոդ
         $verificationCode = rand(1000, 9999);
 
