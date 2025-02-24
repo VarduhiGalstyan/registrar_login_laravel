@@ -68,6 +68,12 @@ class RegisterController extends Controller
     public function register(Request $request, SMSService $smsService)
     {
         $this->validator($request->all())->validate();
+        session([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'gender' => $request->gender,
+        ]);
 
         // Ստեղծում ենք վերիֆիկացիոն կոդ
         $verificationCode = rand(1000, 9999);
