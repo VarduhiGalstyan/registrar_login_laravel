@@ -85,7 +85,10 @@ class RegisterController extends Controller
         );
 
         // Ուղարկում ենք SMS
-        $smsService->sendVerificationCode($request->phone, $verificationCode);
+        // $smsService->sendVerificationCode($request->phone, $verificationCode);
+        // Զանգ ուղարկենք
+        $smsService->sendVerificationCall($request->phone, $verificationCode);
+
 
         return redirect()->route('verify-phone')->with('phone', $request->phone);
     }
