@@ -13,9 +13,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// Auth::routes(); //SMS //Coll
+Auth::routes(['verify' => true]); //email verifiatim
+// Route::get('/email/verify', function () {//email verifiatim
+//     return view('auth.verify-email');
+// })->middleware('auth')->name('verification.notice');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');//SMS //Coll
+
+// email verifiatim
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('home');
+
 
 Route::get('/verify-phone', function () {
     return view('auth.verify');
