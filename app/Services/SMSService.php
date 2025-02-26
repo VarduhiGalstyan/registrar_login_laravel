@@ -38,7 +38,7 @@ class SMSService
 //     public function __construct()
 //     {
 //         $this->client = new Client(config('services.twilio.sid'), config('services.twilio.token'));
-//         $this->twilioNumber = config('services.twilio.phone_number'); // Twilio phone number
+//         $this->twilioNumber = config('services.twilio.phone_number'); 
 //     }
 
 //     // Զանգի ուղարկման մեթոդը (coll-ի վերջում $code-ի 4թվերը ասում է)

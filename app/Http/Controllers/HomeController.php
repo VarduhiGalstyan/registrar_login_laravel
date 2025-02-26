@@ -25,12 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user(); // Ստանում ենք մուտք գործած օգտատիրոջը
+        $user = Auth::user(); 
         
         if (!$user) {
             return redirect('/login')->withErrors('You need to log in first.');
         }
 
-        return view('home', compact('user')); // Ուղարկում ենք `user` փոփոխականը `home` էջին
+        return view('home', compact('user')); 
     }
 }

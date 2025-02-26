@@ -58,7 +58,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'regex:/^(\+374|0)[1-9]\d{7}$/'], // Հայաստանի համարի օրինակ
+            'phone' => ['required', 'regex:/^(\+374|0)[1-9]\d{7}$/'],
             // 'phone' => 'required|regex:/^\+?\d{10,15}$/|unique:users,phone',
             'gender' => ['required', 'in:male,female'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -76,10 +76,8 @@ class RegisterController extends Controller
             'gender' => $request->gender,
         ]);
 
-        // Ստեղծում ենք վերիֆիկացիոն կոդ
         $verificationCode = rand(1000, 9999);
 
-        // Պահպանում ենք տվյալների բազայում
         PhoneVerificationCode::updateOrCreate(
             ['phone' => $request->phone],
             ['code' => $verificationCode, 'expires_at' => Carbon::now()->addMinutes(5)]
@@ -106,9 +104,9 @@ class RegisterController extends Controller
     //         'gender' => $request->gender,
     //     ]);
 
-    //     event(new Registered($user)); // Ուղարկում ենք հաստատման նամակ
+    //     event(new Registered($user)); 
 
-    //     return redirect()->route('verification.notice'); // Տանում ենք email-ի հաստատման էջ
+    //     return redirect()->route('verification.notice'); 
     // }
 
     /**
@@ -121,8 +119,8 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            'phone' => $data['phone'], //  Phone
-            'gender' => $data['gender'], // Gender
+            'phone' => $data['phone'], 
+            'gender' => $data['gender'], 
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
