@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('phone')->unique(); // Հեռախոսահամար
-            $table->enum('gender', ['male', 'female']); //  Սեռ
+            $table->string('phone')->unique(); 
+            $table->enum('gender', ['male', 'female']); 
             $table->rememberToken();
             $table->timestamps();
         });

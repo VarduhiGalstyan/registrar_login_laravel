@@ -41,7 +41,6 @@ class SMSService
 //         $this->twilioNumber = config('services.twilio.phone_number'); 
 //     }
 
-//     // Զանգի ուղարկման մեթոդը (coll-ի վերջում $code-ի 4թվերը ասում է)
 //     public function sendVerificationCall($phone, $code)
 //     {
 //         $twiml = "<Response><Say>Your verification code is $code. Please enter it to verify your phone number.</Say></Response>";
