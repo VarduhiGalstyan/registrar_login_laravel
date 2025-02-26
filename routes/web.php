@@ -12,20 +12,21 @@ use Illuminate\Support\Facades\Hash;
 Route::get('/', function () {
     return view('welcome');
 });
-
-// Auth::routes(); //SMS //Coll
-Auth::routes(['verify' => true]); //email verifiatim
-// Route::get('/email/verify', function () {//email verifiatim
-//     return view('auth.verify-email');
-// })->middleware('auth')->name('verification.notice');
+Route::get('/', 'App\Http\Controllers\StripeController@index')->name('index');// stripe
+Route::post('/checkout', 'App\Http\Controllers\StripeController@checkout')->name('checkout');// stripe
+Route::get('/success', 'App\Http\Controllers\StripeController@success')->name('success');// stripe
 
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');//SMS //Coll
+
+Auth::routes(); //SMS //Coll
+// Auth::routes(['verify' => true]); //email verifiatim
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');//SMS //Coll
 
 // email verifiatim
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+//     ->middleware(['auth', 'verified'])
+//     ->name('home');
 
 
 Route::get('/verify-phone', function () {

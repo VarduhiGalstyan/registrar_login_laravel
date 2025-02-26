@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
 
-use Illuminate\Auth\Events\Registered;//email verification
+// use Illuminate\Auth\Events\Registered;//email verification
 
 class RegisterController extends Controller
 {
@@ -66,50 +66,50 @@ class RegisterController extends Controller
         ]);
     }
     // SMS //Coll
-    // public function register(Request $request, SMSService $smsService)
-    // {
-    //     $this->validator($request->all())->validate();
-    //     session([
-    //         'name' => $request->name,
-    //         'email' => $request->email,
-    //         'password' => $request->password,
-    //         'gender' => $request->gender,
-    //     ]);
-
-    //     // Ստեղծում ենք վերիֆիկացիոն կոդ
-    //     $verificationCode = rand(1000, 9999);
-
-    //     // Պահպանում ենք տվյալների բազայում
-    //     PhoneVerificationCode::updateOrCreate(
-    //         ['phone' => $request->phone],
-    //         ['code' => $verificationCode, 'expires_at' => Carbon::now()->addMinutes(5)]
-    //     );
-
-    //     // Ուղարկում ենք SMS
-    //     // $smsService->sendVerificationCode($request->phone, $verificationCode);
-    //     // Զանգ ուղարկենք
-    //     $smsService->sendVerificationCall($request->phone, $verificationCode);
-
-
-    //     return redirect()->route('verify-phone')->with('phone', $request->phone);
-    // }
-    // email verifiatim
-    public function register(Request $request)
+    public function register(Request $request, SMSService $smsService)
     {
         $this->validator($request->all())->validate();
-
-        $user = User::create([
+        session([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'phone' => $request->phone,
+            'password' => $request->password,
             'gender' => $request->gender,
         ]);
 
-        event(new Registered($user)); // Ուղարկում ենք հաստատման նամակ
+        // Ստեղծում ենք վերիֆիկացիոն կոդ
+        $verificationCode = rand(1000, 9999);
 
-        return redirect()->route('verification.notice'); // Տանում ենք email-ի հաստատման էջ
+        // Պահպանում ենք տվյալների բազայում
+        PhoneVerificationCode::updateOrCreate(
+            ['phone' => $request->phone],
+            ['code' => $verificationCode, 'expires_at' => Carbon::now()->addMinutes(5)]
+        );
+
+        // Ուղարկում ենք SMS
+        $smsService->sendVerificationCode($request->phone, $verificationCode);
+        // Զանգ ուղարկենք
+        // $smsService->sendVerificationCall($request->phone, $verificationCode);
+
+
+        return redirect()->route('verify-phone')->with('phone', $request->phone);
     }
+    // email verifiatim
+    // public function register(Request $request)
+    // {
+    //     $this->validator($request->all())->validate();
+
+    //     $user = User::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'password' => Hash::make($request->password),
+    //         'phone' => $request->phone,
+    //         'gender' => $request->gender,
+    //     ]);
+
+    //     event(new Registered($user)); // Ուղարկում ենք հաստատման նամակ
+
+    //     return redirect()->route('verification.notice'); // Տանում ենք email-ի հաստատման էջ
+    // }
 
     /**
      * Create a new user instance after a valid registration.
