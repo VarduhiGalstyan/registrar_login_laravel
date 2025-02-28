@@ -58,3 +58,9 @@ Route::post('/verify-phone', function (Request $request) {
 
     return redirect('/home');
 });
+
+
+// admin
+Route::get('admin-page', function(){
+    return view('layouts.admin_layouts.admin_ContainPage');
+});
