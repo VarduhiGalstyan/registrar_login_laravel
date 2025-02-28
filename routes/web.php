@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\PhoneVerificationCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\AdminController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -59,8 +61,7 @@ Route::post('/verify-phone', function (Request $request) {
     return redirect('/home');
 });
 
-
-// admin
-Route::get('admin-page', function(){
-    return view('layouts.admin_layouts.admin_ContainPage');
+// admin middleware
+Route::middleware([ 'admin'])->group(function () {
+    Route::get('/admin-page', [AdminController::class, 'index'])->name('admin.page');
 });
